@@ -58,3 +58,5 @@ disp(['At time ' num2str(t_check) ' s, the object is at position (' num2str(x_ch
 t_max_height = V * sin(alpha) / g;
 y_max_height = V * sin(alpha) * t_max_height - 0.5 * g * t_max_height^2;
 disp(['The maximum height the object can reach is ' num2str(y_max_height) ' m']);
+
+%test Ayman%
