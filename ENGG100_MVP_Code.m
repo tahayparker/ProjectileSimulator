@@ -32,7 +32,7 @@ classdef ENGG100_MVP_Code < matlab.apps.AppBase
     
     properties (Access = private)
                % Constants
-               g = 9.81; % Acceleration due to gravity (m/s^2)
+               g = 24.79; % Acceleration due to gravity (m/s^2)
                basketball_ring_height = 3; % Height of the basketball ring (m)
                basketball_ring_distance = 6; % Distance of the basketball ring from the building (m)
     end
