@@ -31,32 +31,50 @@ basketball_ring_distance = 6; % Distance of the basketball ring from the buildin
 % Calculate the velocity and angle
 V = sqrt((D^2 * g) / (D * tan(asin((H - basketball_ring_height) / D)) - H + basketball_ring_height));
 alpha = atan((H - basketball_ring_height) / D);
-
+time_of_flight = (2 * V)/ g;
 % Display the results
 disp(['Velocity (V): ' num2str(V) ' m/s']);
 disp(['Angle (alpha): ' num2str(rad2deg(alpha)) ' degrees']);
+disp(time_of_flight);
 
 % Plot the object's movement
-t = linspace(0, 2 * V * sin(alpha) / g, 100);
-x = V * cos(alpha) * t;
-y = V * sin(alpha) * t - 0.5 * g * t.^2;
+t = linspace(0, 2 * V * sin(alpha) / g, 1000);
+tmax = t(1,1000);
+xmax = round(V * cos(alpha) * tmax)+1;
+ymax = round(V * sin(alpha) * tmax - 0.5 * g * tmax.^2)+1;
+
+xr = ceil(xmax / 10) * 10;
+yr = ceil(ymax / 10) * 10;
 
 figure;
-plot(x, y);
+
 xlabel('Horizontal Distance (m)');
 ylabel('Vertical Distance (m)');
 title('Projectile Motion');
 grid on;
 
-% Check the location of the object at any required moment
-t_check = input('Enter the time to check the location of the object: ');
-x_check = V * cos(alpha) * t_check;
-y_check = V * sin(alpha) * t_check - 0.5 * g * t_check^2;
-disp(['At time ' num2str(t_check) ' s, the object is at position (' num2str(x_check) ', ' num2str(y_check) ')']);
+for i =t
+    x = V * cos(alpha) * i;
+    y = V * sin(alpha) * i - 0.5 * g * i.^2;
 
-% Calculate the maximum height
-t_max_height = V * sin(alpha) / g;
-y_max_height = V * sin(alpha) * t_max_height - 0.5 * g * t_max_height^2;
-disp(['The maximum height the object can reach is ' num2str(y_max_height) ' m']);
+    plot(x,y,'o',LineWidth=2);
+    hold on
+    plot(x,y,LineWidth=2);
+    disp([i,x,y])
+    axis([0 xr, 0 yr])
+    pause(0.01);
+end
 
-%test Ayman%
+
+% % Check the location of the object at any required moment
+% t_check = input('Enter the time to check the location of the object: ');
+% x_check = V * cos(alpha) * t_check;
+% y_check = V * sin(alpha) * t_check - 0.5 * g * t_check^2;
+% disp(['At time ' num2str(t_check) ' s, the object is at position (' num2str(x_check) ', ' num2str(y_check) ')']);
+% 
+% % Calculate the maximum height
+% t_max_height = V * sin(alpha) / g;
+% y_max_height = V * sin(alpha) * t_max_height - 0.5 * g * t_max_height^2;
+% disp(['The maximum height the object can reach is ' num2str(y_max_height) ' m']);
+% 
+% %test Ayman%

@@ -49,7 +49,7 @@ classdef ENGG100_MVP_Code < matlab.apps.AppBase
             V = sqrt((D^2 * app.g) / (D * tan(asin((H - app.basketball_ring_height)/D)) - H + app.basketball_ring_height)); % Velocity
             app.velocity.Value = double(V) ; % Displays Velocity
             app.angle.Value = alpha; % Displays Angle
-
+           
             disp(V); % CLI PRINT V FOR DEBUG
 
           
