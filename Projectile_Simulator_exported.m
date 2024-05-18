@@ -1,4 +1,4 @@
-classdef Projectile_Simulator_exportednew < matlab.apps.AppBase
+classdef Projectile_Simulator_exported < matlab.apps.AppBase
 
     % Properties that correspond to app components
     properties (Access = public)
@@ -843,7 +843,7 @@ classdef Projectile_Simulator_exportednew < matlab.apps.AppBase
     methods (Access = public)
 
         % Construct app
-        function app = Projectile_Simulator_exportednew
+        function app = Projectile_Simulator_exported
 
             % Create UIFigure and components
             createComponents(app)
