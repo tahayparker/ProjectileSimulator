@@ -1,4 +1,4 @@
-classdef Projectile_Simulator_exported < matlab.apps.AppBase
+classdef Projectile_Simulator_exportednew < matlab.apps.AppBase
 
     % Properties that correspond to app components
     properties (Access = public)
@@ -63,6 +63,18 @@ classdef Projectile_Simulator_exported < matlab.apps.AppBase
         MainGraph                   matlab.ui.control.UIAxes
         GraphsTab                   matlab.ui.container.Tab
         HistoryTab                  matlab.ui.container.Tab
+        ClearAllButton              matlab.ui.control.Button
+        SimulationHistoryLabel      matlab.ui.control.Label
+        ExportButton                matlab.ui.control.Button
+        ImportButton                matlab.ui.control.Button
+        IncludeButtonGroup          matlab.ui.container.ButtonGroup
+        RangeButton                 matlab.ui.control.RadioButton
+        TimeofFlightButton          matlab.ui.control.RadioButton
+        PeakLocationButton          matlab.ui.control.RadioButton
+        ViewDropDown                matlab.ui.control.DropDown
+        ViewDropDownLabel           matlab.ui.control.Label
+        UITable                     matlab.ui.control.Table
+        UIAxes                      matlab.ui.control.UIAxes
     end
 
 
@@ -368,7 +380,7 @@ classdef Projectile_Simulator_exported < matlab.apps.AppBase
         % Value changed function: InputPlaybackSpeed
         function InputPlaybackSpeedValueChanged(app, event)
             app.pSpeed = app.InputPlaybackSpeed.Value;
-
+            
         end
     end
 
@@ -742,11 +754,77 @@ classdef Projectile_Simulator_exported < matlab.apps.AppBase
             app.HistoryTab = uitab(app.TabGroup);
             app.HistoryTab.Title = 'History';
 
+            % Create UIAxes
+            app.UIAxes = uiaxes(app.HistoryTab);
+            title(app.UIAxes, 'Title')
+            xlabel(app.UIAxes, 'X')
+            ylabel(app.UIAxes, 'Y')
+            zlabel(app.UIAxes, 'Z')
+            app.UIAxes.Position = [29 23 671 342];
+
+            % Create UITable
+            app.UITable = uitable(app.HistoryTab);
+            app.UITable.ColumnName = {'#'; 'Velocity'; 'Initial Height'; 'Angle of launch'; 'Acceleration'};
+            app.UITable.RowName = {};
+            app.UITable.Position = [29 375 894 121];
+
+            % Create ViewDropDownLabel
+            app.ViewDropDownLabel = uilabel(app.HistoryTab);
+            app.ViewDropDownLabel.HorizontalAlignment = 'right';
+            app.ViewDropDownLabel.Position = [743 313 31 22];
+            app.ViewDropDownLabel.Text = 'View';
+
+            % Create ViewDropDown
+            app.ViewDropDown = uidropdown(app.HistoryTab);
+            app.ViewDropDown.Items = {'Option 1', 'Option 2', 'Option 3', 'Option 4', 'ALL'};
+            app.ViewDropDown.Position = [789 313 133 22];
+
+            % Create IncludeButtonGroup
+            app.IncludeButtonGroup = uibuttongroup(app.HistoryTab);
+            app.IncludeButtonGroup.Title = 'Include';
+            app.IncludeButtonGroup.Position = [736 141 178 106];
+
+            % Create PeakLocationButton
+            app.PeakLocationButton = uiradiobutton(app.IncludeButtonGroup);
+            app.PeakLocationButton.Text = 'Peak Location';
+            app.PeakLocationButton.Position = [11 60 98 22];
+            app.PeakLocationButton.Value = true;
+
+            % Create TimeofFlightButton
+            app.TimeofFlightButton = uiradiobutton(app.IncludeButtonGroup);
+            app.TimeofFlightButton.Text = 'Time of Flight';
+            app.TimeofFlightButton.Position = [11 38 94 22];
+
+            % Create RangeButton
+            app.RangeButton = uiradiobutton(app.IncludeButtonGroup);
+            app.RangeButton.Text = 'Range';
+            app.RangeButton.Position = [11 16 65 22];
+
+            % Create ImportButton
+            app.ImportButton = uibutton(app.HistoryTab, 'push');
+            app.ImportButton.Position = [723 32 100 23];
+            app.ImportButton.Text = 'Import';
+
+            % Create ExportButton
+            app.ExportButton = uibutton(app.HistoryTab, 'push');
+            app.ExportButton.Position = [836 32 100 23];
+            app.ExportButton.Text = 'Export';
+
+            % Create SimulationHistoryLabel
+            app.SimulationHistoryLabel = uilabel(app.HistoryTab);
+            app.SimulationHistoryLabel.Position = [30 494 102 22];
+            app.SimulationHistoryLabel.Text = 'Simulation History';
+
+            % Create ClearAllButton
+            app.ClearAllButton = uibutton(app.HistoryTab, 'push');
+            app.ClearAllButton.Position = [783 77 100 23];
+            app.ClearAllButton.Text = 'Clear All';
+
             % Create ProjectileSimulatorLabel
             app.ProjectileSimulatorLabel = uilabel(app.UIFigure);
             app.ProjectileSimulatorLabel.FontSize = 36;
             app.ProjectileSimulatorLabel.FontWeight = 'bold';
-            app.ProjectileSimulatorLabel.Position = [305 553 348 48];
+            app.ProjectileSimulatorLabel.Position = [307 553 348 48];
             app.ProjectileSimulatorLabel.Text = 'Projectile Simulator';
 
             % Create Versionlabel
@@ -765,7 +843,7 @@ classdef Projectile_Simulator_exported < matlab.apps.AppBase
     methods (Access = public)
 
         % Construct app
-        function app = Projectile_Simulator_exported
+        function app = Projectile_Simulator_exportednew
 
             % Create UIFigure and components
             createComponents(app)
