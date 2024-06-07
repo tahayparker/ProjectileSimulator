@@ -27,7 +27,7 @@ end
 initial_guess = [0.000001 * pi / 180, 0.000001];  % Initial guess: 0.000001 degrees and 0.000001 m/s
 
 % Solve the system of equations using fsolve
-options = optimoptions('fsolve', 'MaxFunEvals', 1000000);
+options = optimoptions('fsolve', 'MaxFunEvals', 1000000000000000000000, 'MaxIterations', 1000000000000000000000);
 solution = fsolve(@equations, initial_guess, options);
 
 % Extract the solutions
