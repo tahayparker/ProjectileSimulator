@@ -31,13 +31,21 @@ options = optimoptions('fsolve', 'MaxFunEvals', 1000000000000000000000, 'MaxIter
 solution = fsolve(@equations, initial_guess, options);
 
 % Extract the solutions
-theta_solution_rad = solution(1);
+alpha = solution(1);
 theta_solution_deg = solution(1)*180/pi();
-v0_solution = solution(2);
-t_flight = D / (v0_solution * cos(theta_solution_rad));
+V = solution(2);
+t_flight = D / (V * cos(alpha));
+
+
+            t = linspace(0, t_flight, 100); % Time array
+            xe = V * cos(alpha) * t; % X - Axis
+            y = V * sin(alpha) * t - 0.5 * g * t.^2; % Y - Axis
+
+plot(xe,y)
+
 
 % Display the results
 fprintf('Initial angle (theta): %.2f degrees\n', theta_solution_deg);
-fprintf('Initial angle (rad): %.2f radians\n', theta_solution_rad)
-fprintf('Initial velocity (v0): %.2f m/s\n', v0_solution);
+fprintf('Initial angle (rad): %.2f radians\n', alpha)
+fprintf('Initial velocity (v0): %.2f m/s\n', V);
 fprintf('Time of flight: %.2f s', t_flight)
