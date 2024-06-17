@@ -11,10 +11,11 @@ D = x + d;  % Total horizontal distance from thrower to basket
 g = 9.81;   % Acceleration due to gravity in m/s^2
 
 % Define the system of equations to solve
-function F = equations(vars)
-    global y_b H x D g;
+function F = eqnss(vars)
+    global y_b H x d D g;
     theta = vars(1);
     v0 = vars(2);
+
     % Safety margin to ensure the ball clears the building
     safety_margin = 1e-6; % 0.5 meters above the building height
 
@@ -33,14 +34,15 @@ initial_guess = [0.000001, 0.000001];  % Initial guess: 0.000001 degrees and 0.0
 
 % Solve the system of equations using fsolve
 options = optimoptions('fsolve', 'MaxFunEvals', 1e+50, 'MaxIterations', 1e+50);
-solution = fsolve(@equations, initial_guess, options);
+solution = fsolve(@eqnss, initial_guess, options);
 
 % Extract the solutions
-alpha = solution(1);
-theta_solution_deg = solution(1)*180/pi();
-V = solution(2);
-t_flight = D / (V * cos(alpha));
+alpha = solution(1)
+theta_solution_deg = solution(1)*180/pi()
+V = solution(2)
+t_flight = D / (V * cos(alpha))
 
+%{
 
 t = 0:1e-7:t_flight; % Time array
 xe = V * cos(alpha) * t; % X - Axis
@@ -55,4 +57,5 @@ grid minor;
 fprintf('Initial angle (theta): %.2f degrees\n', theta_solution_deg);
 fprintf('Initial angle (rad): %.2f radians\n', alpha)
 fprintf('Initial velocity (v0): %.2f m/s\n', V);
-fprintf('Time of flight: %.2f s', t_flight)
+fprintf('Time of flight: %.2f s\n', t_flight)
+%}
