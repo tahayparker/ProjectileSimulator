@@ -23,8 +23,8 @@ classdef Projectile_Simulator_TP_exported < matlab.apps.AppBase
         IntialHeightLabel           matlab.ui.control.Label
         AccelerationLabel           matlab.ui.control.Label
         OutputPanel                 matlab.ui.container.Panel
-        secLabel_3                  matlab.ui.control.Label
         TimePeak                    matlab.ui.control.EditField
+        secLabel_3                  matlab.ui.control.Label
         RangeLabel_3                matlab.ui.control.Label
         TimeatPeakLabel             matlab.ui.control.Label
         mLabel_5                    matlab.ui.control.Label
@@ -90,9 +90,9 @@ classdef Projectile_Simulator_TP_exported < matlab.apps.AppBase
         MaxDisplacementLabel_2      matlab.ui.control.Label
         MaxDisplacement             matlab.ui.control.NumericEditField
         MaxDisplacementLabel        matlab.ui.control.Label
-        AccelerationTimeGraph       matlab.ui.control.UIAxes
-        VelocityTimeGraph           matlab.ui.control.UIAxes
         DisplacementTimeGraph       matlab.ui.control.UIAxes
+        VelocityTimeGraph           matlab.ui.control.UIAxes
+        AccelerationTimeGraph       matlab.ui.control.UIAxes
         HistoryTab                  matlab.ui.container.Tab
         GridLayout2                 matlab.ui.container.GridLayout
         TabGroup2                   matlab.ui.container.TabGroup
@@ -1063,6 +1063,13 @@ classdef Projectile_Simulator_TP_exported < matlab.apps.AppBase
             app.RangeLabel_3.Position = [268 64 79 22];
             app.RangeLabel_3.Text = 'Time at Peak:';
 
+            % Create secLabel_3
+            app.secLabel_3 = uilabel(app.OutputPanel);
+            app.secLabel_3.HorizontalAlignment = 'center';
+            app.secLabel_3.FontWeight = 'bold';
+            app.secLabel_3.Position = [412 64 25 22];
+            app.secLabel_3.Text = 'sec';
+
             % Create TimePeak
             app.TimePeak = uieditfield(app.OutputPanel, 'text');
             app.TimePeak.Editable = 'off';
@@ -1070,13 +1077,6 @@ classdef Projectile_Simulator_TP_exported < matlab.apps.AppBase
             app.TimePeak.BackgroundColor = [0.9412 0.9412 0.9412];
             app.TimePeak.Placeholder = '0';
             app.TimePeak.Position = [348 64 55 22];
-
-            % Create secLabel_3
-            app.secLabel_3 = uilabel(app.OutputPanel);
-            app.secLabel_3.HorizontalAlignment = 'center';
-            app.secLabel_3.FontWeight = 'bold';
-            app.secLabel_3.Position = [412 64 25 22];
-            app.secLabel_3.Text = 'sec';
 
             % Create InputPanel
             app.InputPanel = uipanel(app.simlayout);
@@ -1191,25 +1191,25 @@ classdef Projectile_Simulator_TP_exported < matlab.apps.AppBase
             app.GridLayout.RowHeight = {'1x', '1x', '1x', '1x', '1x', '1x', '1x', '1x', '1x'};
             app.GridLayout.BackgroundColor = [0.9412 0.9412 0.9412];
 
-            % Create DisplacementTimeGraph
-            app.DisplacementTimeGraph = uiaxes(app.GridLayout);
-            title(app.DisplacementTimeGraph, 'Displacement - Time')
-            xlabel(app.DisplacementTimeGraph, 'Time (s)')
-            ylabel(app.DisplacementTimeGraph, 'Displacement (m)')
-            zlabel(app.DisplacementTimeGraph, 'Z')
-            app.DisplacementTimeGraph.Toolbar.Visible = 'off';
-            app.DisplacementTimeGraph.XLimitMethod = 'tight';
-            app.DisplacementTimeGraph.YLimitMethod = 'tight';
-            app.DisplacementTimeGraph.ZLimitMethod = 'tight';
-            app.DisplacementTimeGraph.MinorGridLineStyle = '-';
-            app.DisplacementTimeGraph.Color = 'none';
-            app.DisplacementTimeGraph.XGrid = 'on';
-            app.DisplacementTimeGraph.XMinorGrid = 'on';
-            app.DisplacementTimeGraph.YGrid = 'on';
-            app.DisplacementTimeGraph.YMinorGrid = 'on';
-            app.DisplacementTimeGraph.ColorOrder = [0.149 0.549 0.866;0.96 0.466 0.16;1 0.909 0.392;0.752 0.36 0.984;0.286 0.858 0.25;0.423 0.956 1;0.949 0.403 0.772];
-            app.DisplacementTimeGraph.Layout.Row = [1 6];
-            app.DisplacementTimeGraph.Layout.Column = [5 6];
+            % Create AccelerationTimeGraph
+            app.AccelerationTimeGraph = uiaxes(app.GridLayout);
+            title(app.AccelerationTimeGraph, 'Acceleration - Time')
+            xlabel(app.AccelerationTimeGraph, 'Time (s)')
+            ylabel(app.AccelerationTimeGraph, 'Acceleration (m/s²)')
+            zlabel(app.AccelerationTimeGraph, 'Z')
+            app.AccelerationTimeGraph.XLimitMethod = 'tight';
+            app.AccelerationTimeGraph.YLimitMethod = 'tight';
+            app.AccelerationTimeGraph.ZLimitMethod = 'tight';
+            app.AccelerationTimeGraph.MinorGridLineStyle = '-';
+            app.AccelerationTimeGraph.Color = 'none';
+            app.AccelerationTimeGraph.XGrid = 'on';
+            app.AccelerationTimeGraph.XMinorGrid = 'on';
+            app.AccelerationTimeGraph.YGrid = 'on';
+            app.AccelerationTimeGraph.YMinorGrid = 'on';
+            app.AccelerationTimeGraph.ColorOrder = [1 0.0705882352941176 0.650980392156863;0.96078431372549 0.466666666666667 0.16078431372549;1 0.909803921568627 0.392156862745098;0.752941176470588 0.36078431372549 0.984313725490196;0.286274509803922 0.858823529411765 0.250980392156863;0.423529411764706 0.956862745098039 1;1 0.0705882352941176 0.650980392156863];
+            app.AccelerationTimeGraph.Layout.Row = [1 6];
+            app.AccelerationTimeGraph.Layout.Column = [1 2];
+            colormap(app.AccelerationTimeGraph, 'copper')
 
             % Create VelocityTimeGraph
             app.VelocityTimeGraph = uiaxes(app.GridLayout);
@@ -1231,25 +1231,25 @@ classdef Projectile_Simulator_TP_exported < matlab.apps.AppBase
             app.VelocityTimeGraph.Layout.Row = [1 6];
             app.VelocityTimeGraph.Layout.Column = [3 4];
 
-            % Create AccelerationTimeGraph
-            app.AccelerationTimeGraph = uiaxes(app.GridLayout);
-            title(app.AccelerationTimeGraph, 'Acceleration - Time')
-            xlabel(app.AccelerationTimeGraph, 'Time (s)')
-            ylabel(app.AccelerationTimeGraph, 'Acceleration (m/s²)')
-            zlabel(app.AccelerationTimeGraph, 'Z')
-            app.AccelerationTimeGraph.XLimitMethod = 'tight';
-            app.AccelerationTimeGraph.YLimitMethod = 'tight';
-            app.AccelerationTimeGraph.ZLimitMethod = 'tight';
-            app.AccelerationTimeGraph.MinorGridLineStyle = '-';
-            app.AccelerationTimeGraph.Color = 'none';
-            app.AccelerationTimeGraph.XGrid = 'on';
-            app.AccelerationTimeGraph.XMinorGrid = 'on';
-            app.AccelerationTimeGraph.YGrid = 'on';
-            app.AccelerationTimeGraph.YMinorGrid = 'on';
-            app.AccelerationTimeGraph.ColorOrder = [1 0.0705882352941176 0.650980392156863;0.96078431372549 0.466666666666667 0.16078431372549;1 0.909803921568627 0.392156862745098;0.752941176470588 0.36078431372549 0.984313725490196;0.286274509803922 0.858823529411765 0.250980392156863;0.423529411764706 0.956862745098039 1;1 0.0705882352941176 0.650980392156863];
-            app.AccelerationTimeGraph.Layout.Row = [1 6];
-            app.AccelerationTimeGraph.Layout.Column = [1 2];
-            colormap(app.AccelerationTimeGraph, 'copper')
+            % Create DisplacementTimeGraph
+            app.DisplacementTimeGraph = uiaxes(app.GridLayout);
+            title(app.DisplacementTimeGraph, 'Displacement - Time')
+            xlabel(app.DisplacementTimeGraph, 'Time (s)')
+            ylabel(app.DisplacementTimeGraph, 'Displacement (m)')
+            zlabel(app.DisplacementTimeGraph, 'Z')
+            app.DisplacementTimeGraph.Toolbar.Visible = 'off';
+            app.DisplacementTimeGraph.XLimitMethod = 'tight';
+            app.DisplacementTimeGraph.YLimitMethod = 'tight';
+            app.DisplacementTimeGraph.ZLimitMethod = 'tight';
+            app.DisplacementTimeGraph.MinorGridLineStyle = '-';
+            app.DisplacementTimeGraph.Color = 'none';
+            app.DisplacementTimeGraph.XGrid = 'on';
+            app.DisplacementTimeGraph.XMinorGrid = 'on';
+            app.DisplacementTimeGraph.YGrid = 'on';
+            app.DisplacementTimeGraph.YMinorGrid = 'on';
+            app.DisplacementTimeGraph.ColorOrder = [0.149 0.549 0.866;0.96 0.466 0.16;1 0.909 0.392;0.752 0.36 0.984;0.286 0.858 0.25;0.423 0.956 1;0.949 0.403 0.772];
+            app.DisplacementTimeGraph.Layout.Row = [1 6];
+            app.DisplacementTimeGraph.Layout.Column = [5 6];
 
             % Create MaxDisplacementLabel
             app.MaxDisplacementLabel = uilabel(app.GridLayout);
