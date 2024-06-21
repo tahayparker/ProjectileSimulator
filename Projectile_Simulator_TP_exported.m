@@ -2,107 +2,103 @@ classdef Projectile_Simulator_TP_exported < matlab.apps.AppBase
 
     % Properties that correspond to app components
     properties (Access = public)
-        UIFigure                    matlab.ui.Figure
-        Versionlabel                matlab.ui.control.Label
-        ProjectileSimulatorLabel    matlab.ui.control.Label
-        TabGroup                    matlab.ui.container.TabGroup
-        simulator                   matlab.ui.container.Tab
-        simlayout                   matlab.ui.container.GridLayout
-        InputPanel                  matlab.ui.container.Panel
-        Distance                    matlab.ui.control.NumericEditField
-        Height                      matlab.ui.control.NumericEditField
-        acceleration                matlab.ui.control.DropDown
-        RTSSSwitch                  matlab.ui.control.Switch
-        simulate                    matlab.ui.control.Button
-        SaveButton                  matlab.ui.control.Button
-        resetall                    matlab.ui.control.Button
-        RTSSSwitchLabel             matlab.ui.control.Label
-        mLabel_3                    matlab.ui.control.Label
-        mLabel                      matlab.ui.control.Label
-        RangeLabel                  matlab.ui.control.Label
-        IntialHeightLabel           matlab.ui.control.Label
-        AccelerationLabel           matlab.ui.control.Label
-        OutputPanel                 matlab.ui.container.Panel
-        TimePeak                    matlab.ui.control.EditField
-        secLabel_3                  matlab.ui.control.Label
-        RangeLabel_3                matlab.ui.control.Label
-        TimeatPeakLabel             matlab.ui.control.Label
-        mLabel_5                    matlab.ui.control.Label
-        velocity                    matlab.ui.control.NumericEditField
-        VelocityLabel               matlab.ui.control.Label
-        timeofflight                matlab.ui.control.NumericEditField
-        TimeofflightLabel           matlab.ui.control.Label
-        MH                          matlab.ui.control.NumericEditField
-        MaxHieghtLabel              matlab.ui.control.Label
-        peak                        matlab.ui.control.EditField
-        PeakLocationEditFieldLabel  matlab.ui.control.Label
-        angle                       matlab.ui.control.NumericEditField
-        AngleofLaunchLabel          matlab.ui.control.Label
-        Range                       matlab.ui.control.EditField
-        RangeLabel_2                matlab.ui.control.Label
-        msLabel                     matlab.ui.control.Label
-        secLabel_2                  matlab.ui.control.Label
-        mLabel_2                    matlab.ui.control.Label
-        radsLabel                   matlab.ui.control.Label
-        mLabel_4                    matlab.ui.control.Label
-        LocationTrackerPanel        matlab.ui.container.Panel
-        timelocate                  matlab.ui.control.NumericEditField
-        locate                      matlab.ui.control.Button
-        secLabel                    matlab.ui.control.Label
-        locationdisp                matlab.ui.control.TextArea
-        CheckobjectlocationatLabel  matlab.ui.control.Label
-        RTSSPanel                   matlab.ui.container.Panel
-        TimeElapsedLabel            matlab.ui.control.Label
-        TimeElapsedValue            matlab.ui.control.Label
-        TimeRemainingLabel          matlab.ui.control.Label
-        TimeRemainingValue          matlab.ui.control.Label
-        CurrentHeightLabel          matlab.ui.control.Label
-        CurrentHeightValue          matlab.ui.control.Label
-        DistanceCoveredLabel        matlab.ui.control.Label
-        DistanceCoveredValue        matlab.ui.control.Label
-        DistanceRemainingLabel      matlab.ui.control.Label
-        DistanceRemainingValue      matlab.ui.control.Label
-        ReplayButton                matlab.ui.control.Button
-        FastRewindButton            matlab.ui.control.Button
-        Skipback                    matlab.ui.control.Button
-        PlayPauseButton             matlab.ui.control.StateButton
-        Skipforward                 matlab.ui.control.Button
-        FastForwardButton           matlab.ui.control.Button
-        InputPlaybackSpeed          matlab.ui.control.Spinner
-        MainGraph                   matlab.ui.control.UIAxes
-        GraphsTab                   matlab.ui.container.Tab
-        GridLayout                  matlab.ui.container.GridLayout
-        Jerk                        matlab.ui.control.NumericEditField
-        MaxDisplacementLabel_10     matlab.ui.control.Label
-        MinAcceleration             matlab.ui.control.NumericEditField
-        MaxDisplacementLabel_9      matlab.ui.control.Label
-        MaxAcceleration             matlab.ui.control.NumericEditField
-        MaxDisplacementLabel_8      matlab.ui.control.Label
-        AvgAcceleration             matlab.ui.control.NumericEditField
-        MaxDisplacementLabel_7      matlab.ui.control.Label
-        MinVelocity                 matlab.ui.control.NumericEditField
-        MaxDisplacementLabel_5      matlab.ui.control.Label
-        MaxVelocity                 matlab.ui.control.NumericEditField
-        MaxDisplacementLabel_4      matlab.ui.control.Label
-        AvgVelocity                 matlab.ui.control.NumericEditField
-        MaxDisplacementLabel_3      matlab.ui.control.Label
-        MinDisplacement             matlab.ui.control.NumericEditField
-        MaxDisplacementLabel_2      matlab.ui.control.Label
-        MaxDisplacement             matlab.ui.control.NumericEditField
-        MaxDisplacementLabel        matlab.ui.control.Label
-        DisplacementTimeGraph       matlab.ui.control.UIAxes
-        VelocityTimeGraph           matlab.ui.control.UIAxes
-        AccelerationTimeGraph       matlab.ui.control.UIAxes
-        HistoryTab                  matlab.ui.container.Tab
-        GridLayout2                 matlab.ui.container.GridLayout
-        TabGroup2                   matlab.ui.container.TabGroup
-        MainTab                     matlab.ui.container.Tab
-        ClearAllButton              matlab.ui.control.Button
-        DataDropDown                matlab.ui.control.DropDown
-        DataDropDownLabel           matlab.ui.control.Label
-        ImportButton                matlab.ui.control.Button
-        SimulationH                 matlab.ui.control.Table
-        Historygraph                matlab.ui.control.UIAxes
+        ProjectileSimulatorUIFigure  matlab.ui.Figure
+        Versionlabel                 matlab.ui.control.Label
+        ProjectileSimulatorLabel     matlab.ui.control.Label
+        TabGroup                     matlab.ui.container.TabGroup
+        simulator                    matlab.ui.container.Tab
+        simlayout                    matlab.ui.container.GridLayout
+        InputPanel                   matlab.ui.container.Panel
+        Distance                     matlab.ui.control.NumericEditField
+        Height                       matlab.ui.control.NumericEditField
+        acceleration                 matlab.ui.control.DropDown
+        RTSSSwitch                   matlab.ui.control.Switch
+        simulate                     matlab.ui.control.Button
+        SaveButton                   matlab.ui.control.Button
+        resetall                     matlab.ui.control.Button
+        RTSSSwitchLabel              matlab.ui.control.Label
+        mLabel_3                     matlab.ui.control.Label
+        mLabel                       matlab.ui.control.Label
+        RangeLabel                   matlab.ui.control.Label
+        IntialHeightLabel            matlab.ui.control.Label
+        AccelerationLabel            matlab.ui.control.Label
+        OutputPanel                  matlab.ui.container.Panel
+        mLabel_5                     matlab.ui.control.Label
+        velocity                     matlab.ui.control.NumericEditField
+        VelocityLabel                matlab.ui.control.Label
+        timeofflight                 matlab.ui.control.NumericEditField
+        TimeofflightLabel            matlab.ui.control.Label
+        MH                           matlab.ui.control.NumericEditField
+        MaxHieghtLabel               matlab.ui.control.Label
+        peak                         matlab.ui.control.EditField
+        PeakLocationEditFieldLabel   matlab.ui.control.Label
+        angle                        matlab.ui.control.NumericEditField
+        AngleofLaunchLabel           matlab.ui.control.Label
+        Range                        matlab.ui.control.EditField
+        RangeLabel_2                 matlab.ui.control.Label
+        msLabel                      matlab.ui.control.Label
+        secLabel_2                   matlab.ui.control.Label
+        mLabel_2                     matlab.ui.control.Label
+        radsLabel                    matlab.ui.control.Label
+        mLabel_4                     matlab.ui.control.Label
+        LocationTrackerPanel         matlab.ui.container.Panel
+        timelocate                   matlab.ui.control.NumericEditField
+        locate                       matlab.ui.control.Button
+        secLabel                     matlab.ui.control.Label
+        locationdisp                 matlab.ui.control.TextArea
+        CheckobjectlocationatLabel   matlab.ui.control.Label
+        RTSSPanel                    matlab.ui.container.Panel
+        Skipforward                  matlab.ui.control.Button
+        TimeElapsedLabel             matlab.ui.control.Label
+        TimeElapsedValue             matlab.ui.control.Label
+        TimeRemainingLabel           matlab.ui.control.Label
+        TimeRemainingValue           matlab.ui.control.Label
+        CurrentHeightLabel           matlab.ui.control.Label
+        CurrentHeightValue           matlab.ui.control.Label
+        DistanceCoveredLabel         matlab.ui.control.Label
+        DistanceCoveredValue         matlab.ui.control.Label
+        DistanceRemainingLabel       matlab.ui.control.Label
+        DistanceRemainingValue       matlab.ui.control.Label
+        ReplayButton                 matlab.ui.control.Button
+        FastRewindButton             matlab.ui.control.Button
+        Skipback                     matlab.ui.control.Button
+        PlayPauseButton              matlab.ui.control.StateButton
+        FastForwardButton            matlab.ui.control.Button
+        InputPlaybackSpeed           matlab.ui.control.Spinner
+        MainGraph                    matlab.ui.control.UIAxes
+        GraphsTab                    matlab.ui.container.Tab
+        GridLayout                   matlab.ui.container.GridLayout
+        Jerk                         matlab.ui.control.NumericEditField
+        MaxDisplacementLabel_10      matlab.ui.control.Label
+        MinAcceleration              matlab.ui.control.NumericEditField
+        MaxDisplacementLabel_9       matlab.ui.control.Label
+        MaxAcceleration              matlab.ui.control.NumericEditField
+        MaxDisplacementLabel_8       matlab.ui.control.Label
+        AvgAcceleration              matlab.ui.control.NumericEditField
+        MaxDisplacementLabel_7       matlab.ui.control.Label
+        MinVelocity                  matlab.ui.control.NumericEditField
+        MaxDisplacementLabel_5       matlab.ui.control.Label
+        MaxVelocity                  matlab.ui.control.NumericEditField
+        MaxDisplacementLabel_4       matlab.ui.control.Label
+        AvgVelocity                  matlab.ui.control.NumericEditField
+        MaxDisplacementLabel_3       matlab.ui.control.Label
+        MinDisplacement              matlab.ui.control.NumericEditField
+        MaxDisplacementLabel_2       matlab.ui.control.Label
+        MaxDisplacement              matlab.ui.control.NumericEditField
+        MaxDisplacementLabel         matlab.ui.control.Label
+        DisplacementTimeGraph        matlab.ui.control.UIAxes
+        VelocityTimeGraph            matlab.ui.control.UIAxes
+        AccelerationTimeGraph        matlab.ui.control.UIAxes
+        HistoryTab                   matlab.ui.container.Tab
+        GridLayout2                  matlab.ui.container.GridLayout
+        TabGroup2                    matlab.ui.container.TabGroup
+        MainTab                      matlab.ui.container.Tab
+        ClearAllButton               matlab.ui.control.Button
+        DataDropDown                 matlab.ui.control.DropDown
+        DataDropDownLabel            matlab.ui.control.Label
+        ImportButton                 matlab.ui.control.Button
+        SimulationH                  matlab.ui.control.Table
+        Historygraph                 matlab.ui.control.UIAxes
     end
 
     properties (Access = private)
@@ -113,7 +109,7 @@ classdef Projectile_Simulator_TP_exported < matlab.apps.AppBase
 
         sAni = true % Should the program animate
         isAni = true % Is the program animating
-        isPlay = true % Is the program playing the animation    
+        isPlay = true % Is the program playing the animation
         isUpdat = true % Is the program updating
         cTime = 0 % Start Time
         pSpeed = 1 % Playback speed
@@ -130,13 +126,13 @@ classdef Projectile_Simulator_TP_exported < matlab.apps.AppBase
         % Simulation Tab
 
         % This is the input function of the program
-        function [x, H, y_b, d, D, g] = inputs(app)
+        function [x, H, y_b, d, xf, g] = inputs(app)
             x = app.Distance.Value; % Distance from obstacle
             H = app.Height.Value; % Height of obstacle
             a = app.acceleration.Value; % Acceleration ie. Gravity
-            y_b = 3;    % Height of the basket in meters
-            d = 6;      % Distance from obstacle to basket in meters
-            D = x + d;  % Total horizontal distance from thrower to basket
+            y_b = 3;    % Height of the final position in meters
+            d = 6;      % Distance from obstacle to final position in meters
+            xf = x + d;  % Total horizontal distance 
             if a == "Earth"
                 g = 9.81; % Earth Gravity
             elseif a == "Moon"
@@ -148,13 +144,13 @@ classdef Projectile_Simulator_TP_exported < matlab.apps.AppBase
 
         % Define the system of equations to solve
         function F = eqnss(app, vars)
-            [x, H, y_b, ~, D, g] = inputs(app); % Get required inputs
+            [x, H, y_b, ~, xf, g] = inputs(app); % Get required inputs
             alpha = vars(1); % Angle initial guess
             v0 = vars(2); % Velocity initial guess
             safety_margin = 1e-6; % Margin to avoiid hitting obstacle
 
-            % Equation for the vertical position at the basket
-            eq1 = y_b - (D * tan(alpha) - (1/2) * g * (D / (v0 * cos(alpha)))^2);
+            % Equation for the vertical position at the final position
+            eq1 = y_b - (xf * tan(alpha) - (1/2) * g * (xf / (v0 * cos(alpha)))^2);
 
             % Equation for the height at the obstacle
             eq2 = H + safety_margin - (x * tan(alpha) - (1/2) * g * (x / (v0 * cos(alpha)))^2);
@@ -163,10 +159,10 @@ classdef Projectile_Simulator_TP_exported < matlab.apps.AppBase
             F = [eq1; eq2];
         end
 
-        function [V, alpha, tofl, rangeh, t_max_height, max_height, x_max_height, peakvalue] = calculate(app, D, g)
+        function [V, alpha, tofl, rangeh, t_max_height, max_height, x_max_height, peakvalue] = calculate(app, xf, g)
 
             % Initial guesses for alpha and v0 1e-6 degrees and 1e-6 m/s
-            initial_guess = [(1e-6) * pi / 180, 1e-6];
+            initial_guess = [1e-6 * pi / 180, 1e-6];
 
             % Generate function for fsolve
             fun = @(initial_guess)eqnss(app, initial_guess);
@@ -181,8 +177,8 @@ classdef Projectile_Simulator_TP_exported < matlab.apps.AppBase
             alpha = abs(solution(1)); % Angle
             V = abs(solution(2)); % Velocity
 
-            tofl = D / (V * cos(alpha)); % Time of flight
-            rangeh = D; % Max X
+            tofl = xf / (V * cos(alpha)); % Time of flight
+            rangeh = xf; % Max X
             t_max_height = V * sin(alpha) / g; % Time at max height
             max_height = V * sin(alpha) * t_max_height - 0.5 * g * t_max_height^2; % Max height
             x_max_height = V * cos(alpha) * t_max_height ; % Max Height X - Coordinates % X coordinate at max height
@@ -263,7 +259,6 @@ classdef Projectile_Simulator_TP_exported < matlab.apps.AppBase
             app.CurrentHeightValue.Text = sprintf('%.2f m', y);
             app.DistanceCoveredValue.Text = sprintf('%.2f m', x);
             app.DistanceRemainingValue.Text = sprintf('%.2f m', distanceRemaining);
-            % app.CurrentVelocityValue.Text = sprintf('%.2f m/s', currentVelocity);
             app.TimeElapsedValue.Text = sprintf('%.2f s', t);
             app.TimeRemainingValue.Text = sprintf('%.2f s', timeRemaining);
         end
@@ -313,12 +308,12 @@ classdef Projectile_Simulator_TP_exported < matlab.apps.AppBase
         % This function plots displacement against time in graphs tab
         function plotdisp(app)
             [~, ~, ~, ~, D, g] = inputs(app);
-            [V, alpha, tofl, ~, ~, ~, ~, ~] = calculate(app, D, g);
+            [V, ~, tofl, ~, ~, ~, ~, ~] = calculate(app, D, g);
             x = linspace(0, tofl, 1e+5); % Time array
-            y = V * sin(alpha) * x - 0.5 * g * x.^2; % Displacement based on time
-            plot(app.DisplacementTimeGraph, x, y)
+            y = V * x - 0.5 * g * x.^2; % Displacement based on time
+            plot(app.DisplacementTimeGraph, x, y, 'LineWidth', 2.0)
             app.MaxDisplacement.Value = max(y); % Max Displacement
-            app.AvgVelocity.Value = V * cos(alpha); % Average Velocity
+            app.AvgVelocity.Value = mean(y); % Average Velocity
         end
 
         % This fucntions plots velocity against time in the graphs tab
@@ -326,9 +321,10 @@ classdef Projectile_Simulator_TP_exported < matlab.apps.AppBase
             [~, ~, ~, ~, D, g] = inputs(app);
             [V, ~, tofl, ~, ~, ~, ~, ~] = calculate(app, D, g);
             x = linspace(0, tofl, 1e+5); % Time array
-            y = linspace(-V, 0, 1e+5); % Velocity array
-            plot(app.VelocityTimeGraph, x, y)
-            app.MinVelocity.Value = -V; % Max velocity
+            y = V - g * x; % Velocity array
+            plot(app.VelocityTimeGraph, x, y, 'LineWidth', 2.0)
+            app.MinVelocity.Value = min(y); % Min velocity
+            app.MaxVelocity.Value = max(y); % Max velocity
             app.AvgAcceleration.Value = -g; % Average acceleration
         end
 
@@ -338,8 +334,9 @@ classdef Projectile_Simulator_TP_exported < matlab.apps.AppBase
             [~, ~, tofl, ~, ~, ~, ~, ~] = calculate(app, D, g);
             x = linspace(0, tofl, 1e+5); % Time array
             y = linspace(-g, -g, 1e+5); % Acceleration array
-            plot(app.AccelerationTimeGraph, x, y)
+            plot(app.AccelerationTimeGraph, x, y, 'LineWidth', 2.0)
             app.MaxAcceleration.Value = -g; % Max Acceleration
+            app.MinAcceleration.Value = -g; % Min Acceleration
             app.Jerk.Value = 0; % Jerk = 0 since dy/dt(constant)
         end
 
@@ -430,29 +427,22 @@ classdef Projectile_Simulator_TP_exported < matlab.apps.AppBase
 
         % Button pushed function: simulate
         function simulateButtonPushed(app, event)
-            [x, H, y_b, ~, D, g] = inputs(app);
+            [x, ~, ~, ~, D, g] = inputs(app);
             isValidDistance = true; % Initialize checking variable - Distance
-            isValidHeight = true; % Initialize checking variable - Height
 
-            % Error if distance from building is too less
+            % Error if distance from obstacle is too less
             if x < 0.01
-                uialert(app.UIFigure, ["Too close to the building!", "Try a larger value"], "Too close", "Icon", "error");
+                uialert(app.ProjectileSimulatorUIFigure, ["Too close to the obstacle!", "Try a larger value"], "Too close", "Icon", "error");
                 isValidDistance = false;
             end
 
-            % Error if obstacle height less than final height
-            if H < y_b
-                uialert(app.UIFigure, "Obstacle cannot be shorter than final height!", "Obstacle too short", "Icon", "error");
-                isValidHeight = false;
-            end
-
             % Check if both conditions are met
-            if isValidDistance && isValidHeight
-                [V, alpha, tofl, ~, t_max_height, max_height, ~, peakvalue] = calculate(app, D, g);
+            if isValidDistance
+                [V, alpha, tofl, ~, ~, max_height, ~, peakvalue] = calculate(app, D, g);
 
                 % Error if angle greater than 89.99
                 if round(rad2deg(alpha), 2) > 89.99
-                    uialert(app.UIFigure, "Angle is too large!", "Angle too large", "Icon", "error");
+                    uialert(app.ProjectileSimulatorUIFigure, "Angle is too large!", "Angle too large", "Icon", "error");
                 else
                     app.velocity.Value = round(V, 2) ; % Displays Velocity
                     app.angle.Value = round(alpha, 2); % Displays Angle
@@ -463,7 +453,7 @@ classdef Projectile_Simulator_TP_exported < matlab.apps.AppBase
                     app.MH.Value = max_height; % Maximum Height
                     app.peak.Value = peakvalue; % Peak value (x,y)
                     app.Range.Value = num2str(D); % Total range
-                    app.TimePeak.Value = num2str(round(t_max_height, 2)); % Time at Peak Value
+
 
                     plotdisp(app); % Plot displacement time graph
                     plotvel(app); % Plot velocity time graph
@@ -505,7 +495,7 @@ classdef Projectile_Simulator_TP_exported < matlab.apps.AppBase
             app.MH.Value = 0;
             app.angle.Value = 0;
             app.Range.Value = "0";
-            app.TimePeak.Value = "0";
+
             app.peak.Value = "(x,y)";
 
             % Main Graph
@@ -574,7 +564,7 @@ classdef Projectile_Simulator_TP_exported < matlab.apps.AppBase
 
         % Button pushed function: FastRewindButton
         function FastRewindButtonPushed(app, event)
-            tweakRTSS(app, -4);
+            tweakRTSS(app, -1.5);
         end
 
         % Button pushed function: Skipback
@@ -614,7 +604,7 @@ classdef Projectile_Simulator_TP_exported < matlab.apps.AppBase
 
         % Button pushed function: FastForwardButton
         function FastForwardButtonPushed(app, event)
-            tweakRTSS(app, 2);
+            tweakRTSS(app, 1.5);
         end
 
         % Value changed function: InputPlaybackSpeed
@@ -626,7 +616,7 @@ classdef Projectile_Simulator_TP_exported < matlab.apps.AppBase
         function SaveButtonPushed(app, event)
             s = inputdlg("Enter the name of the Data","Save");
             if isempty(s)
-                uialert(app.UIFigure, "Save Cancelled", "Failure", "Icon", "warning");
+                uialert(app.ProjectileSimulatorUIFigure, "Save Cancelled", "Failure", "Icon", "warning");
             else
                 [~, H, ~, ~, D, g] = inputs(app);
                 [V, alpha, tofl, ~, ~, ~, ~, ~] = calculate(app, D, g);
@@ -679,6 +669,19 @@ classdef Projectile_Simulator_TP_exported < matlab.apps.AppBase
                 delete(i)
             end
         end
+
+        % Close request function: ProjectileSimulatorUIFigure
+        function ProjectileSimulatorUIFigureCloseRequest(app, event)
+            if isfield(app, 'timer') && isa(app.timerr, 'timer') && isvalid(app.timerr)
+                if strcmp(app.timerr.Running, 'on')
+                    stop(app.timerr);
+                end
+
+                delete(app.timer);
+            end
+
+            delete(app);
+        end
     end
 
     % Component initialization
@@ -690,14 +693,16 @@ classdef Projectile_Simulator_TP_exported < matlab.apps.AppBase
             % Get the file path for locating images
             pathToMLAPP = fileparts(mfilename('fullpath'));
 
-            % Create UIFigure and hide until all components are created
-            app.UIFigure = uifigure('Visible', 'off');
-            app.UIFigure.Color = [0.9412 0.9412 0.9412];
-            app.UIFigure.Position = [100 100 957 609];
-            app.UIFigure.Name = 'MATLAB App';
+            % Create ProjectileSimulatorUIFigure and hide until all components are created
+            app.ProjectileSimulatorUIFigure = uifigure('Visible', 'off');
+            app.ProjectileSimulatorUIFigure.Color = [0.9412 0.9412 0.9412];
+            app.ProjectileSimulatorUIFigure.Position = [100 100 957 609];
+            app.ProjectileSimulatorUIFigure.Name = 'Projectile Simulator';
+            app.ProjectileSimulatorUIFigure.Icon = fullfile(pathToMLAPP, 'catapult.png');
+            app.ProjectileSimulatorUIFigure.CloseRequestFcn = createCallbackFcn(app, @ProjectileSimulatorUIFigureCloseRequest, true);
 
             % Create TabGroup
-            app.TabGroup = uitabgroup(app.UIFigure);
+            app.TabGroup = uitabgroup(app.ProjectileSimulatorUIFigure);
             app.TabGroup.Position = [1 1 957 550];
 
             % Create simulator
@@ -756,7 +761,7 @@ classdef Projectile_Simulator_TP_exported < matlab.apps.AppBase
             app.InputPlaybackSpeed.BackgroundColor = [0.9412 0.9412 0.9412];
             app.InputPlaybackSpeed.Enable = 'off';
             app.InputPlaybackSpeed.Tooltip = {'Set playback speed'};
-            app.InputPlaybackSpeed.Position = [399 130 58 22];
+            app.InputPlaybackSpeed.Position = [394 126 58 22];
             app.InputPlaybackSpeed.Value = 1;
 
             % Create FastForwardButton
@@ -765,18 +770,8 @@ classdef Projectile_Simulator_TP_exported < matlab.apps.AppBase
             app.FastForwardButton.Icon = fullfile(pathToMLAPP, 'fast-forward.png');
             app.FastForwardButton.BackgroundColor = [0.9412 0.9412 0.9412];
             app.FastForwardButton.Enable = 'off';
-            app.FastForwardButton.Position = [332 130 47 23];
+            app.FastForwardButton.Position = [270 127 47 23];
             app.FastForwardButton.Text = '';
-
-            % Create Skipforward
-            app.Skipforward = uibutton(app.RTSSPanel, 'push');
-            app.Skipforward.ButtonPushedFcn = createCallbackFcn(app, @SkipforwardPushed, true);
-            app.Skipforward.Icon = fullfile(pathToMLAPP, 'Forward.png');
-            app.Skipforward.IconAlignment = 'center';
-            app.Skipforward.BackgroundColor = [0.9412 0.9412 0.9412];
-            app.Skipforward.Enable = 'off';
-            app.Skipforward.Position = [270 130 47 23];
-            app.Skipforward.Text = '';
 
             % Create PlayPauseButton
             app.PlayPauseButton = uibutton(app.RTSSPanel, 'state');
@@ -786,7 +781,7 @@ classdef Projectile_Simulator_TP_exported < matlab.apps.AppBase
             app.PlayPauseButton.IconAlignment = 'center';
             app.PlayPauseButton.Text = '';
             app.PlayPauseButton.BackgroundColor = [0.9412 0.9412 0.9412];
-            app.PlayPauseButton.Position = [233 130 25 23];
+            app.PlayPauseButton.Position = [233 127 25 23];
 
             % Create Skipback
             app.Skipback = uibutton(app.RTSSPanel, 'push');
@@ -794,7 +789,7 @@ classdef Projectile_Simulator_TP_exported < matlab.apps.AppBase
             app.Skipback.Icon = fullfile(pathToMLAPP, 'Rewind.png');
             app.Skipback.BackgroundColor = [0.9412 0.9412 0.9412];
             app.Skipback.Enable = 'off';
-            app.Skipback.Position = [172 130 47 23];
+            app.Skipback.Position = [122 127 47 23];
             app.Skipback.Text = '';
 
             % Create FastRewindButton
@@ -803,7 +798,7 @@ classdef Projectile_Simulator_TP_exported < matlab.apps.AppBase
             app.FastRewindButton.Icon = fullfile(pathToMLAPP, 'FastRewind.png');
             app.FastRewindButton.BackgroundColor = [0.9412 0.9412 0.9412];
             app.FastRewindButton.Enable = 'off';
-            app.FastRewindButton.Position = [112 130 47 23];
+            app.FastRewindButton.Position = [175 127 47 23];
             app.FastRewindButton.Text = '';
 
             % Create ReplayButton
@@ -811,7 +806,7 @@ classdef Projectile_Simulator_TP_exported < matlab.apps.AppBase
             app.ReplayButton.ButtonPushedFcn = createCallbackFcn(app, @ReplayButtonPushed, true);
             app.ReplayButton.BackgroundColor = [0.9412 0.9412 0.9412];
             app.ReplayButton.Enable = 'off';
-            app.ReplayButton.Position = [13 130 85 23];
+            app.ReplayButton.Position = [15 127 85 23];
             app.ReplayButton.Text = 'Replay';
 
             % Create DistanceRemainingValue
@@ -868,6 +863,16 @@ classdef Projectile_Simulator_TP_exported < matlab.apps.AppBase
             app.TimeElapsedLabel = uilabel(app.RTSSPanel);
             app.TimeElapsedLabel.Position = [285 88 85 22];
             app.TimeElapsedLabel.Text = 'Time Elapsed: ';
+
+            % Create Skipforward
+            app.Skipforward = uibutton(app.RTSSPanel, 'push');
+            app.Skipforward.ButtonPushedFcn = createCallbackFcn(app, @SkipforwardPushed, true);
+            app.Skipforward.Icon = fullfile(pathToMLAPP, 'Forward.png');
+            app.Skipforward.IconAlignment = 'center';
+            app.Skipforward.BackgroundColor = [0.9412 0.9412 0.9412];
+            app.Skipforward.Enable = 'off';
+            app.Skipforward.Position = [323 126 47 23];
+            app.Skipforward.Text = '';
 
             % Create LocationTrackerPanel
             app.LocationTrackerPanel = uipanel(app.simlayout);
@@ -1051,33 +1056,6 @@ classdef Projectile_Simulator_TP_exported < matlab.apps.AppBase
             app.mLabel_5.Position = [206 32 25 22];
             app.mLabel_5.Text = 'm';
 
-            % Create TimeatPeakLabel
-            app.TimeatPeakLabel = uilabel(app.OutputPanel);
-            app.TimeatPeakLabel.BackgroundColor = [0.9412 0.9412 0.9412];
-            app.TimeatPeakLabel.Position = [278 62 75 22];
-            app.TimeatPeakLabel.Text = 'Time at Peak';
-
-            % Create RangeLabel_3
-            app.RangeLabel_3 = uilabel(app.OutputPanel);
-            app.RangeLabel_3.BackgroundColor = [0.9412 0.9412 0.9412];
-            app.RangeLabel_3.Position = [268 64 79 22];
-            app.RangeLabel_3.Text = 'Time at Peak:';
-
-            % Create secLabel_3
-            app.secLabel_3 = uilabel(app.OutputPanel);
-            app.secLabel_3.HorizontalAlignment = 'center';
-            app.secLabel_3.FontWeight = 'bold';
-            app.secLabel_3.Position = [412 64 25 22];
-            app.secLabel_3.Text = 'sec';
-
-            % Create TimePeak
-            app.TimePeak = uieditfield(app.OutputPanel, 'text');
-            app.TimePeak.Editable = 'off';
-            app.TimePeak.HorizontalAlignment = 'center';
-            app.TimePeak.BackgroundColor = [0.9412 0.9412 0.9412];
-            app.TimePeak.Placeholder = '0';
-            app.TimePeak.Position = [348 64 55 22];
-
             % Create InputPanel
             app.InputPanel = uipanel(app.simlayout);
             app.InputPanel.AutoResizeChildren = 'off';
@@ -1227,7 +1205,8 @@ classdef Projectile_Simulator_TP_exported < matlab.apps.AppBase
             app.VelocityTimeGraph.XMinorGrid = 'on';
             app.VelocityTimeGraph.YGrid = 'on';
             app.VelocityTimeGraph.YMinorGrid = 'on';
-            app.VelocityTimeGraph.ColorOrder = [0.290196078431373 0.858823529411765 0.250980392156863;0.96078431372549 0.466666666666667 0.16078431372549;1 0.909803921568627 0.388235294117647;0.749019607843137 0.36078431372549 0.980392156862745;0.290196078431373 0.858823529411765 0.250980392156863;0.423529411764706 0.956862745098039 1;0.949019607843137 0.403921568627451 0.772549019607843];
+            app.VelocityTimeGraph.ColorOrder = [0.63921568627451 0.0784313725490196 0.180392156862745;0.96078431372549 0.466666666666667 0.16078431372549;1 0.909803921568627 0.388235294117647;0.749019607843137 0.36078431372549 0.980392156862745;0.290196078431373 0.858823529411765 0.250980392156863;0.423529411764706 0.956862745098039 1;0.949019607843137 0.403921568627451 0.772549019607843;0.63921568627451 0.0784313725490196 0.180392156862745];
+            app.VelocityTimeGraph.SortMethod = 'depth';
             app.VelocityTimeGraph.Layout.Row = [1 6];
             app.VelocityTimeGraph.Layout.Column = [3 4];
 
@@ -1385,7 +1364,7 @@ classdef Projectile_Simulator_TP_exported < matlab.apps.AppBase
             app.MaxDisplacementLabel_10.HorizontalAlignment = 'center';
             app.MaxDisplacementLabel_10.Layout.Row = 9;
             app.MaxDisplacementLabel_10.Layout.Column = 1;
-            app.MaxDisplacementLabel_10.Text = 'Jerk (m/s³)';
+            app.MaxDisplacementLabel_10.Text = 'Jolt (m/s³)';
 
             % Create Jerk
             app.Jerk = uieditfield(app.GridLayout, 'numeric');
@@ -1469,7 +1448,7 @@ classdef Projectile_Simulator_TP_exported < matlab.apps.AppBase
             app.ClearAllButton.Text = 'Clear All';
 
             % Create ProjectileSimulatorLabel
-            app.ProjectileSimulatorLabel = uilabel(app.UIFigure);
+            app.ProjectileSimulatorLabel = uilabel(app.ProjectileSimulatorUIFigure);
             app.ProjectileSimulatorLabel.HorizontalAlignment = 'center';
             app.ProjectileSimulatorLabel.FontSize = 36;
             app.ProjectileSimulatorLabel.FontWeight = 'bold';
@@ -1477,14 +1456,14 @@ classdef Projectile_Simulator_TP_exported < matlab.apps.AppBase
             app.ProjectileSimulatorLabel.Text = 'Projectile Simulator';
 
             % Create Versionlabel
-            app.Versionlabel = uilabel(app.UIFigure);
+            app.Versionlabel = uilabel(app.ProjectileSimulatorUIFigure);
             app.Versionlabel.HorizontalAlignment = 'center';
             app.Versionlabel.FontWeight = 'bold';
             app.Versionlabel.Position = [923 570 25 22];
             app.Versionlabel.Text = 'V4';
 
             % Show the figure after all components are created
-            app.UIFigure.Visible = 'on';
+            app.ProjectileSimulatorUIFigure.Visible = 'on';
         end
     end
 
@@ -1503,11 +1482,11 @@ classdef Projectile_Simulator_TP_exported < matlab.apps.AppBase
                 createComponents(app)
 
                 % Register the app with App Designer
-                registerApp(app, app.UIFigure)
+                registerApp(app, app.ProjectileSimulatorUIFigure)
             else
 
                 % Focus the running singleton app
-                figure(runningApp.UIFigure)
+                figure(runningApp.ProjectileSimulatorUIFigure)
 
                 app = runningApp;
             end
@@ -1521,7 +1500,7 @@ classdef Projectile_Simulator_TP_exported < matlab.apps.AppBase
         function delete(app)
 
             % Delete UIFigure when app is deleted
-            delete(app.UIFigure)
+            delete(app.ProjectileSimulatorUIFigure)
         end
     end
 end
