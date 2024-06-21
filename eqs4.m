@@ -22,8 +22,13 @@ function F = eqnss(vars)
     % Equation for the vertical position at the basket
     eq1 = y_b - (D * tan(theta) - (1/2) * g * (D / (v0 * cos(theta)))^2);
     
-    % Equation for the height at the building
-    eq2 = H + safety_margin - (x * tan(theta) - (1/2) * g * (x / (v0 * cos(theta)))^2);
+    if H < y_b
+        % If the building height is less than the basket height, the building constraint can be ignored
+        eq2 = 0;  % No constraint needed for the building
+    else
+        % Equation for the height at the building
+        eq2 = H + safety_margin - (x * tan(theta) - (1/2) * g * (x / (v0 * cos(theta)))^2);
+    end
     
     % Return the system of equations
     F = [eq1; eq2];
