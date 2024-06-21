@@ -132,7 +132,7 @@ classdef Projectile_Simulator_TP_exported < matlab.apps.AppBase
             a = app.acceleration.Value; % Acceleration ie. Gravity
             y_b = 3;    % Height of the final position in meters
             d = 6;      % Distance from obstacle to final position in meters
-            xf = D + d;  % Total horizontal distance 
+            xf = D + d;  % Total horizontal distance
             if a == "Earth"
                 g = 9.81; % Earth Gravity
             elseif a == "Moon"
@@ -152,8 +152,13 @@ classdef Projectile_Simulator_TP_exported < matlab.apps.AppBase
             % Equation for the vertical position at the final position
             eq1 = y_b - (xf * tan(alpha) - (1/2) * g * (xf / (v0 * cos(alpha)))^2);
 
-            % Equation for the height at the obstacle
-            eq2 = H + safety_margin - (D * tan(alpha) - (1/2) * g * (D / (v0 * cos(alpha)))^2);
+            % If the building height is less than the basket height, the building constraint can be ignored
+            if H < y_b
+                eq2 = 0;
+            else
+                % Equation for the height at the obstacle
+                eq2 = H + safety_margin - (D * tan(alpha) - (1/2) * g * (D / (v0 * cos(alpha)))^2);
+            end
 
             % Return the system of equations
             F = [eq1; eq2];
@@ -427,9 +432,8 @@ classdef Projectile_Simulator_TP_exported < matlab.apps.AppBase
 
         % Button pushed function: simulate
         function simulateButtonPushed(app, event)
-            [D, H, ~, ~, xf, g] = inputs(app);
+            [D, ~, ~, ~, xf, g] = inputs(app);
             isValidDistance = true; % Initialize checking variable - Distance
-            isValidHeight = true; % Initialize checking variable - Height
 
             % Error if distance from obstacle is too less
             if D < 0.01
@@ -437,14 +441,8 @@ classdef Projectile_Simulator_TP_exported < matlab.apps.AppBase
                 isValidDistance = false;
             end
 
-            % Error if obstacle height less than final height
-            if H < 0.5
-                uialert(app.ProjectileSimulatorUIFigure, "Obstacle cannot be less than 0!", "Obstacle too short", "Icon", "error");
-                isValidHeight = false;
-            end
-
             % Check if both conditions are met
-            if isValidDistance && isValidHeight
+            if isValidDistance
                 [V, alpha, tofl, ~, ~, max_height, ~, peakvalue] = calculate(app, xf, g);
 
                 % Error if angle greater than 89.99
@@ -1371,7 +1369,7 @@ classdef Projectile_Simulator_TP_exported < matlab.apps.AppBase
             app.MaxDisplacementLabel_10.HorizontalAlignment = 'center';
             app.MaxDisplacementLabel_10.Layout.Row = 9;
             app.MaxDisplacementLabel_10.Layout.Column = 1;
-            app.MaxDisplacementLabel_10.Text = 'Jolt (m/s³)';
+            app.MaxDisplacementLabel_10.Text = 'Jerk (m/s³)';
 
             % Create Jerk
             app.Jerk = uieditfield(app.GridLayout, 'numeric');
