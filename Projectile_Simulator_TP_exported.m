@@ -126,13 +126,13 @@ classdef Projectile_Simulator_TP_exported < matlab.apps.AppBase
         % Simulation Tab
 
         % This is the input function of the program
-        function [x, H, y_b, d, xf, g] = inputs(app)
-            x = app.Distance.Value; % Distance from obstacle
+        function [D, H, y_b, d, xf, g] = inputs(app)
+            D = app.Distance.Value; % Distance from obstacle
             H = app.Height.Value; % Height of obstacle
             a = app.acceleration.Value; % Acceleration ie. Gravity
             y_b = 3;    % Height of the final position in meters
             d = 6;      % Distance from obstacle to final position in meters
-            xf = x + d;  % Total horizontal distance 
+            xf = D + d;  % Total horizontal distance 
             if a == "Earth"
                 g = 9.81; % Earth Gravity
             elseif a == "Moon"
@@ -144,7 +144,7 @@ classdef Projectile_Simulator_TP_exported < matlab.apps.AppBase
 
         % Define the system of equations to solve
         function F = eqnss(app, vars)
-            [x, H, y_b, ~, xf, g] = inputs(app); % Get required inputs
+            [D, H, y_b, ~, xf, g] = inputs(app); % Get required inputs
             alpha = vars(1); % Angle initial guess
             v0 = vars(2); % Velocity initial guess
             safety_margin = 1e-6; % Margin to avoiid hitting obstacle
@@ -153,7 +153,7 @@ classdef Projectile_Simulator_TP_exported < matlab.apps.AppBase
             eq1 = y_b - (xf * tan(alpha) - (1/2) * g * (xf / (v0 * cos(alpha)))^2);
 
             % Equation for the height at the obstacle
-            eq2 = H + safety_margin - (x * tan(alpha) - (1/2) * g * (x / (v0 * cos(alpha)))^2);
+            eq2 = H + safety_margin - (D * tan(alpha) - (1/2) * g * (D / (v0 * cos(alpha)))^2);
 
             % Return the system of equations
             F = [eq1; eq2];
@@ -186,8 +186,8 @@ classdef Projectile_Simulator_TP_exported < matlab.apps.AppBase
         end
 
         function plotgraph(app) % Plots the static Graph
-            [~, ~, ~, ~, D, g] = inputs(app);
-            [V, alpha, tofl, ~, ~, ~, ~, ~] = calculate(app, D, g);
+            [~, ~, ~, ~, xf, g] = inputs(app);
+            [V, alpha, tofl, ~, ~, ~, ~, ~] = calculate(app, xf, g);
             t = 0:1e-5:tofl; % Time array
             x = V * cos(alpha) * t; % X axis - Horizontal Displacement
             y = V * sin(alpha) * t - 0.5 * g * t.^2; % Y Axis - Vertical Displacement
@@ -307,8 +307,8 @@ classdef Projectile_Simulator_TP_exported < matlab.apps.AppBase
 
         % This function plots displacement against time in graphs tab
         function plotdisp(app)
-            [~, ~, ~, ~, D, g] = inputs(app);
-            [V, ~, tofl, ~, ~, ~, ~, ~] = calculate(app, D, g);
+            [~, ~, ~, ~, xf, g] = inputs(app);
+            [V, ~, tofl, ~, ~, ~, ~, ~] = calculate(app, xf, g);
             x = linspace(0, tofl, 1e+5); % Time array
             y = V * x - 0.5 * g * x.^2; % Displacement based on time
             plot(app.DisplacementTimeGraph, x, y, 'LineWidth', 2.0)
@@ -318,8 +318,8 @@ classdef Projectile_Simulator_TP_exported < matlab.apps.AppBase
 
         % This fucntions plots velocity against time in the graphs tab
         function plotvel(app)
-            [~, ~, ~, ~, D, g] = inputs(app);
-            [V, ~, tofl, ~, ~, ~, ~, ~] = calculate(app, D, g);
+            [~, ~, ~, ~, xf, g] = inputs(app);
+            [V, ~, tofl, ~, ~, ~, ~, ~] = calculate(app, xf, g);
             x = linspace(0, tofl, 1e+5); % Time array
             y = V - g * x; % Velocity array
             plot(app.VelocityTimeGraph, x, y, 'LineWidth', 2.0)
@@ -330,8 +330,8 @@ classdef Projectile_Simulator_TP_exported < matlab.apps.AppBase
 
         % This function plots acceleration against time in the graphs tab
         function plotacc(app)
-            [~, ~, ~, ~, D, g] = inputs(app);
-            [~, ~, tofl, ~, ~, ~, ~, ~] = calculate(app, D, g);
+            [~, ~, ~, ~, xf, g] = inputs(app);
+            [~, ~, tofl, ~, ~, ~, ~, ~] = calculate(app, xf, g);
             x = linspace(0, tofl, 1e+5); % Time array
             y = linspace(-g, -g, 1e+5); % Acceleration array
             plot(app.AccelerationTimeGraph, x, y, 'LineWidth', 2.0)
@@ -427,18 +427,18 @@ classdef Projectile_Simulator_TP_exported < matlab.apps.AppBase
 
         % Button pushed function: simulate
         function simulateButtonPushed(app, event)
-            [x, ~, ~, ~, D, g] = inputs(app);
+            [D, ~, ~, ~, xf, g] = inputs(app);
             isValidDistance = true; % Initialize checking variable - Distance
 
             % Error if distance from obstacle is too less
-            if x < 0.01
+            if D < 0.01
                 uialert(app.ProjectileSimulatorUIFigure, ["Too close to the obstacle!", "Try a larger value"], "Too close", "Icon", "error");
                 isValidDistance = false;
             end
 
             % Check if both conditions are met
             if isValidDistance
-                [V, alpha, tofl, ~, ~, max_height, ~, peakvalue] = calculate(app, D, g);
+                [V, alpha, tofl, ~, ~, max_height, ~, peakvalue] = calculate(app, xf, g);
 
                 % Error if angle greater than 89.99
                 if round(rad2deg(alpha), 2) > 89.99
@@ -452,7 +452,7 @@ classdef Projectile_Simulator_TP_exported < matlab.apps.AppBase
 
                     app.MH.Value = max_height; % Maximum Height
                     app.peak.Value = peakvalue; % Peak value (x,y)
-                    app.Range.Value = num2str(D); % Total range
+                    app.Range.Value = num2str(xf); % Total range
 
 
                     plotdisp(app); % Plot displacement time graph
@@ -538,8 +538,8 @@ classdef Projectile_Simulator_TP_exported < matlab.apps.AppBase
 
         % Button pushed function: locate
         function locateButtonPushed(app, event)
-            [~, ~, ~, ~, D, g] = inputs(app);
-            [V, alpha, tofl, ~, ~, ~, ~, ~] = calculate(app, D, g);
+            [~, ~, ~, ~, xf, g] = inputs(app);
+            [V, alpha, tofl, ~, ~, ~, ~, ~] = calculate(app, xf, g);
             t_check = app.timelocate.Value; % Time field
             if t_check >= tofl % If input time greater than total time
                 x_check = V * cos(alpha) * tofl;
@@ -618,9 +618,9 @@ classdef Projectile_Simulator_TP_exported < matlab.apps.AppBase
             if isempty(s)
                 uialert(app.ProjectileSimulatorUIFigure, "Save Cancelled", "Failure", "Icon", "warning");
             else
-                [~, H, ~, ~, D, g] = inputs(app);
-                [V, alpha, tofl, ~, ~, ~, ~, ~] = calculate(app, D, g);
-                data = [s, D, H, round(g, 2), round(V, 2), round(alpha, 2), round(tofl, 2)];
+                [~, H, ~, ~, xf, g] = inputs(app);
+                [V, alpha, tofl, ~, ~, ~, ~, ~] = calculate(app, xf, g);
+                data = [s, xf, H, round(g, 2), round(V, 2), round(alpha, 2), round(tofl, 2)];
                 sh = app.SimulationH.Data;
                 app.SimulationH.Data = [sh;data];
             end
@@ -698,7 +698,7 @@ classdef Projectile_Simulator_TP_exported < matlab.apps.AppBase
             app.ProjectileSimulatorUIFigure.Color = [0.9412 0.9412 0.9412];
             app.ProjectileSimulatorUIFigure.Position = [100 100 957 609];
             app.ProjectileSimulatorUIFigure.Name = 'Projectile Simulator';
-            app.ProjectileSimulatorUIFigure.Icon = fullfile(pathToMLAPP, 'catapult.png');
+            app.ProjectileSimulatorUIFigure.Icon = fullfile(pathToMLAPP, 'catapult-w.png');
             app.ProjectileSimulatorUIFigure.CloseRequestFcn = createCallbackFcn(app, @ProjectileSimulatorUIFigureCloseRequest, true);
 
             % Create TabGroup
