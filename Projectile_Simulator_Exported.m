@@ -438,8 +438,7 @@ classdef Projectile_Simulator_Exported < matlab.apps.AppBase
 
             % Error if distance from obstacle is too less
             if D < 0.01
-                uialert(app.ProjectileSimulatorUIFigure, ["Too close to the obstacle!", "Try a larger value"], 
-                "Too close", "Icon", "error"); % Error message
+                uialert(app.ProjectileSimulatorUIFigure, ["Too close to the obstacle!", "Try a larger value"], "Too close", "Icon", "error"); % Error message
                 isValidDistance = false;
             end
 
@@ -544,20 +543,18 @@ classdef Projectile_Simulator_Exported < matlab.apps.AppBase
         end
 
         % Button pushed function: locate
-        function locateButtonPushed(app, event)
+        function locateButtonPushed(app, ~)
             [~, ~, ~, ~, xf, g] = inputs(app);
             [V, alpha, tofl, ~, ~, ~, ~, ~] = calculate(app, xf, g);
             t_check = app.timelocate.Value; % Time field
             if t_check >= tofl % If input time greater than total time
                 x_check = V * cos(alpha) * tofl;
-                app.locationdisp.Value= 
-                ['At time ' num2str(round(t_check, 2)) ' s, the object is at position (' num2str(round(x_check, 2)) ', 3)']; 
+                app.locationdisp.Value= ['At time ' num2str(round(t_check, 2)) ' s, the object is at position (' num2str(round(x_check, 2)) ', 3)']; 
                  % Displays time, (x,y) coordinates in locationdisp if time input is greater or equal to time of flight
             else
                 x_check = V * cos(alpha) * t_check; % X - Location
                 y_check = V * sin(alpha) * t_check - 0.5 * g * t_check^2; % Y - Location
-                app.locationdisp.Value= 
-                ['At time ' num2str(round(t_check, 2)) ' s, the object is at position (' num2str(round(x_check, 2)) ', ' num2str(round(y_check, 2)) ')']; 
+                app.locationdisp.Value= ['At time ' num2str(round(t_check, 2)) ' s, the object is at position (' num2str(round(x_check, 2)) ', ' num2str(round(y_check, 2)) ')']; 
                  % Displays time, (x,y) coordinates in locationdisp
             end
         end
@@ -626,6 +623,7 @@ classdef Projectile_Simulator_Exported < matlab.apps.AppBase
         % Button pushed function: SaveButton
         function SaveButtonPushed(app, event)
             s = inputdlg("Enter the name of the Data","Save");
+             uialert(app.ProjectileSimulatorUIFigure, "Save Successful", "Success", "Icon", "success");
             if isempty(s)
                 uialert(app.ProjectileSimulatorUIFigure, "Save Cancelled", "Failure", "Icon", "warning");
             else
@@ -1414,7 +1412,7 @@ classdef Projectile_Simulator_Exported < matlab.apps.AppBase
             % Create SimulationH
             app.SimulationH = uitable(app.GridLayout2);
             app.SimulationH.BackgroundColor = [1 1 1;0.9412 0.9412 0.9412];
-            app.SimulationH.ColumnName = {'Name'; 'Distance'; 'Height'; 'Acceleration'; 'Velocity'; 'Angle of Launch (rads)'; 'Time of Flight'};
+            app.SimulationH.ColumnName = {'Name'; 'Range'; 'Height'; 'Acceleration'; 'Velocity'; 'Angle of Launch (rads)'; 'Time of Flight'};
             app.SimulationH.RowName = {};
             app.SimulationH.Layout.Row = [1 3];
             app.SimulationH.Layout.Column = [1 5];
