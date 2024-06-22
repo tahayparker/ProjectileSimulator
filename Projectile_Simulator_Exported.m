@@ -101,6 +101,8 @@ classdef Projectile_Simulator_Exported < matlab.apps.AppBase
         Historygraph                 matlab.ui.control.UIAxes
     end
 
+
+
     properties (Access = private)
         X % Main - X Values
         Y % Main - Y Values
@@ -205,77 +207,76 @@ classdef Projectile_Simulator_Exported < matlab.apps.AppBase
                     index = find(app.T <= app.cTime, 1, 'last');
 
                     if ~isempty(index)
-                        x = app.X(index);
-                        y = app.Y(index);
-                        updateRTSSv(app, x, y, app.T(index));
+                        x = app.X(index); % X - Coordinate
+                        y = app.Y(index); % Y - Coordinate
+                        updateRTSSv(app, x, y, app.T(index)); % Update the values of the RTSS Panel
 
-                        plot(app.MainGraph, x, y, 'o', 'MarkerFaceColor', 'red');
-                        hold(app.MainGraph, 'on');
-                        plot(app.MainGraph, app.X(1:index), app.Y(1:index), '-');
+                        plot(app.MainGraph, x, y, 'o', 'MarkerFaceColor', 'red'); % Plot the point on the graph
+                        hold(app.MainGraph, 'on');  % Hold the graph values
+                        plot(app.MainGraph, app.X(1:index), app.Y(1:index), '-'); % Plot the line on the graph
 
-                        xlim(app.MainGraph, [min(app.X), max(app.X)]);
-                        ylim(app.MainGraph, [min(app.Y), max(app.Y)]);
+                        xlim(app.MainGraph, [min(app.X), max(app.X)]); % Set the X limits
+                        ylim(app.MainGraph, [min(app.Y), max(app.Y)]);  % Set the Y limits
 
-                        drawnow;
-                        hold(app.MainGraph, 'off');
+                        drawnow; % Draw the graph
+                        hold(app.MainGraph, 'off'); % Release the hold Graphs Values
 
-                        if app.isUpdat
-                            app.cTime = app.cTime + (app.pSpeed / 4);
+                        if app.isUpdat % Check if the program is updating
+                            app.cTime = app.cTime + (app.pSpeed / 4); % Update the time
                         else
-                            app.isUpdat = true;
+                            app.isUpdat = true; % Set the update to true
                         end
                     end
                 else
-                    stop(app.timerr);
-                    app.isAni = false;
+                    stop(app.timerr); % Stop the timer
+                    app.isAni = false; % Set the animation to false
                 end
             end
         end
 
         function pauseRTSS(app) % This function pauses the animation
-            app.isPlay = false;
-            app.isUpdat = false;
-            stop(app.timerr)
-            app.PlayPauseButton.Icon = app.playIcon;
+            app.isPlay = false; % Set the play to false
+            app.isUpdat = false; % Set the update to false
+            stop(app.timerr) % Stop the timer
+            app.PlayPauseButton.Icon = app.playIcon;    % Change the icon to play
             app.timerr.running
         end
 
         function resumeRTSS(app) % This function resumes the animation
-            app.isPlay = true;
-            start(app.timerr);
-            app.PlayPauseButton.Icon = app.pauseIcon;
+            app.isPlay = true; % Set the play to true
+            start(app.timerr);  % Start the timer
+            app.PlayPauseButton.Icon = app.pauseIcon; % Change the icon to pause
         end
 
         function startRTSS(app) % This function starts the RTSS
-            app.cTime = 0;
-            app.isAni = true;
-            app.isPlay = true;
-            app.PlayPauseButton.Icon = app.pauseIcon;
+            app.cTime = 0; % Set the current time to 0
+            app.isAni = true;  % Set the animation to true
+            app.isPlay = true;  % Set the play to true
+            app.PlayPauseButton.Icon = app.pauseIcon;   % Change the icon to pause
             app.timerr = timer('ExecutionMode','fixedRate', ...
                 'Period', 0.1, ...
-                'TimerFcn', @(~,~) updateRTSS(app));
-            start(app.timerr);
+                'TimerFcn', @(~,~) updateRTSS(app)); % Set the timer function
+            start(app.timerr);  % Start the timer
         end
 
         function updateRTSSv(app, x, y, t) % This function updates the values of the RTSS
-            distanceRemaining = max(app.X) - x;
-            timeRemaining = app.TMAX - t;
-
-            app.CurrentHeightValue.Text = sprintf('%.2f m', y);
-            app.DistanceCoveredValue.Text = sprintf('%.2f m', x);
-            app.DistanceRemainingValue.Text = sprintf('%.2f m', distanceRemaining);
-            app.TimeElapsedValue.Text = sprintf('%.2f s', t);
-            app.TimeRemainingValue.Text = sprintf('%.2f s', timeRemaining);
+            distanceRemaining = max(app.X) - x; % Distance remaining
+            timeRemaining = app.TMAX - t; % Time remaining
+            app.CurrentHeightValue.Text = sprintf('%.2f m', y); % Current Height
+            app.DistanceCoveredValue.Text = sprintf('%.2f m', x);   % Distance Covered
+            app.DistanceRemainingValue.Text = sprintf('%.2f m', distanceRemaining); % Distance Remaining
+            app.TimeElapsedValue.Text = sprintf('%.2f s', t); % Time Elapsed
+            app.TimeRemainingValue.Text = sprintf('%.2f s', timeRemaining); % Time Remaining
         end
 
         function tweakRTSS(app, pspeed) % This function tweaks the speed of the animation
             if app.isAni
-                pauseRTSS(app);
-                app.cTime = app.cTime + (app.pSpeed / pspeed);
-                if app.cTime < 0
-                    app.cTime = 0;
+                pauseRTSS(app); % Pause the RTSS
+                app.cTime = app.cTime + (app.pSpeed / pspeed); % Update the time
+                if app.cTime < 0 % If time is less than 0
+                    app.cTime = 0; % Set time to 0
                 end
-                updateRTSS(app);
+                updateRTSS(app); % Update the RTSS
             end
         end
 
@@ -347,17 +348,17 @@ classdef Projectile_Simulator_Exported < matlab.apps.AppBase
 
         % History Tab
         function importf(app)
-            db = app.SimulationH.Data;
-            name = app.DataDropDown.Value;
-            index = app.DataDropDown.ValueIndex;
-            val = db(index,:);
-            D = cell2mat(val(2));
-            g = cell2mat(val(4));
-            [~, ~, tofl, rangeh, ~, max_height, ~, peakvalue] = calculate(app, D, g);
-            newtab(app,name,tofl,rangeh,max_height,peakvalue)
+            db = app.SimulationH.Data; % Get the data from the table
+            name = app.DataDropDown.Value; % Get the value from the dropdown
+            index = app.DataDropDown.ValueIndex;    % Get the index of the value
+            val = db(index,:); % Get the value from the table
+            D = cell2mat(val(2)); % Get the distance
+            g = cell2mat(val(4)); % Get the gravity
+            [~, ~, tofl, rangeh, ~, max_height, ~, peakvalue] = calculate(app, D, g); % Calculate the values
+            newtab(app,name,tofl,rangeh,max_height,peakvalue) % Create a new tab
         end
 
-        function newtab(app,name,tofh,rangeh,maxh,peakvalue)
+        function newtab(app,name,tofh,rangeh,maxh,peakvalue) % This function creates a new tab
             tabname = uitab(app.TabGroup2,"Title",name);
             app.new_tab = [app.new_tab, tabname];
             % Create TimeofflightLabel_2
@@ -409,21 +410,21 @@ classdef Projectile_Simulator_Exported < matlab.apps.AppBase
         end
 
         function plothis(app)
-            index = app.DataDropDown.ValueIndex;
-            db = app.SimulationH.Data;
-            val = db(index,:);
-            name = cellstr(val(1));
-            g= cell2mat(val(4));
-            V= cell2mat(val(5));
-            alpha = cell2mat(val(6));
-            tofl = cell2mat(val(7));
+            index = app.DataDropDown.ValueIndex; % Get the index of the value
+            db = app.SimulationH.Data; % Get the data from the table
+            val = db(index,:); % Get the value from the table
+            name = cellstr(val(1)); % Get the name
+            g= cell2mat(val(4));   % Get the gravity
+            V= cell2mat(val(5));  % Get the velocity
+            alpha = cell2mat(val(6)); % Get the angle
+            tofl = cell2mat(val(7));  % Get the time of flight
             t = linspace(0, tofl, 100); % Time array
             x = V * cos(alpha) * t; % X - Axis
             y = V * sin(alpha) * t - 0.5 * g * t.^2; % Y - Axis
-            app.hisname = [app.hisname; name];
-            plot(app.Historygraph,x,y)
-            legend(app.Historygraph,app.hisname)
-            hold(app.Historygraph,"on")
+            app.hisname = [app.hisname; name]; % Add the name to the history name
+            plot(app.Historygraph,x,y) % Plot the graph
+            legend(app.Historygraph,app.hisname)    % Add the legend
+            hold(app.Historygraph,"on") % Hold the graph
         end
     end
 
@@ -437,7 +438,8 @@ classdef Projectile_Simulator_Exported < matlab.apps.AppBase
 
             % Error if distance from obstacle is too less
             if D < 0.01
-                uialert(app.ProjectileSimulatorUIFigure, ["Too close to the obstacle!", "Try a larger value"], "Too close", "Icon", "error");
+                uialert(app.ProjectileSimulatorUIFigure, ["Too close to the obstacle!", "Try a larger value"], 
+                "Too close", "Icon", "error"); % Error message
                 isValidDistance = false;
             end
 
@@ -548,11 +550,15 @@ classdef Projectile_Simulator_Exported < matlab.apps.AppBase
             t_check = app.timelocate.Value; % Time field
             if t_check >= tofl % If input time greater than total time
                 x_check = V * cos(alpha) * tofl;
-                app.locationdisp.Value= ['At time ' num2str(round(t_check, 2)) ' s, the object is at position (' num2str(round(x_check, 2)) ', 3)'];  % Displays time, (x,y) coordinates in locationdisp if time input is greater or equal to time of flight
+                app.locationdisp.Value= 
+                ['At time ' num2str(round(t_check, 2)) ' s, the object is at position (' num2str(round(x_check, 2)) ', 3)']; 
+                 % Displays time, (x,y) coordinates in locationdisp if time input is greater or equal to time of flight
             else
                 x_check = V * cos(alpha) * t_check; % X - Location
                 y_check = V * sin(alpha) * t_check - 0.5 * g * t_check^2; % Y - Location
-                app.locationdisp.Value= ['At time ' num2str(round(t_check, 2)) ' s, the object is at position (' num2str(round(x_check, 2)) ', ' num2str(round(y_check, 2)) ')'];  % Displays time, (x,y) coordinates in locationdisp
+                app.locationdisp.Value= 
+                ['At time ' num2str(round(t_check, 2)) ' s, the object is at position (' num2str(round(x_check, 2)) ', ' num2str(round(y_check, 2)) ')']; 
+                 % Displays time, (x,y) coordinates in locationdisp
             end
         end
 
@@ -633,20 +639,20 @@ classdef Projectile_Simulator_Exported < matlab.apps.AppBase
 
         % Button pushed function: ImportButton
         function ImportButtonPushed(app, event)
-            importf(app);
-            plothis(app);
+            importf(app); % Import the data
+            plothis(app);   % Plot the data
         end
 
         % Button down function: HistoryTab
         function HistoryTabButtonDown(app, event)
-            db = app.SimulationH.Data;
-            h = height(db);
-            app.DataDropDown.Items = {};
+            db = app.SimulationH.Data; % Get the data from the table
+            h = height(db); % Get the height of the data
+            app.DataDropDown.Items = {}; % Clear the drop down menu
             app.DataDropDown.ItemsData ={};
-            for i = 1:h
-                name = db(i,1);
-                ddrop = app.DataDropDown.Items;
-                app.DataDropDown.Items = [ddrop name];
+            for i = 1:h % Loop through the data
+                name = db(i,1); % Get the name
+                ddrop = app.DataDropDown.Items; % Get the items
+                app.DataDropDown.Items = [ddrop name];  % Add the name to the drop down menu
             end
         end
 
@@ -665,27 +671,27 @@ classdef Projectile_Simulator_Exported < matlab.apps.AppBase
 
         % Button pushed function: ClearAllButton
         function ClearAllButtonPushed(app, event)
-            hold(app.Historygraph,"off")
-            app.hisname = [];
-            plot(app.Historygraph,0,0)
-            legend(app.Historygraph, 'off')
-            tabs = app.new_tab;
+            hold(app.Historygraph,"off") % Hold the graph off
+            app.hisname = []; % Clear the history name
+            plot(app.Historygraph,0,0) % Plot the graph 
+            legend(app.Historygraph, 'off')     % Turn off the legend
+            tabs = app.new_tab; % Get the new tab
             for i  = tabs
-                delete(i)
+                delete(i) % Delete the tab
             end
         end
 
         % Close request function: ProjectileSimulatorUIFigure
         function ProjectileSimulatorUIFigureCloseRequest(app, event)
-            if isfield(app, 'timer') && isa(app.timerr, 'timer') && isvalid(app.timerr)
-                if strcmp(app.timerr.Running, 'on')
-                    stop(app.timerr);
+            if isfield(app, 'timer') && isa(app.timerr, 'timer') && isvalid(app.timerr) % Check if the timer is valid
+                if strcmp(app.timerr.Running, 'on') % Check if the timer is running
+                    stop(app.timerr); % Stop the timer
                 end
 
-                delete(app.timer);
+                delete(app.timer); % Delete the timer
             end
 
-            delete(app);
+            delete(app);    % Delete the app
         end
     end
 
@@ -1509,3 +1515,8 @@ classdef Projectile_Simulator_Exported < matlab.apps.AppBase
         end
     end
 end
+
+
+
+
+
